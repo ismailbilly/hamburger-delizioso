@@ -5,15 +5,12 @@
 /* body {
   font-family: Arial, Helvetica, sans-serif;
 } */
-.lilita {
+/* .lilita {
   font-family: var(--font-lilita-one);
   font-weight: 400;
   /* font-style: italic; */
-}
-.oswald {
-  font-family: var(--font-oswald);
-  font-weight: 400;
-}
+
+
 @layer base {
   :root {
     --radius: 0.5rem;

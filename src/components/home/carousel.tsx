@@ -5,9 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 
 const images = [
-  { src: "/hero/slide-4.jpg", text: "Delicious Pizza, Just for You!" },
-  { src: "/hero/slide-5.jpg", text: "Fresh Ingredients, Perfect Taste!" },
-  { src: "/hero/slide-6.jpg", text: "Order Now and Enjoy!" },
+  { src: "/hero/slide-4.jpg", text: "Crispy chicken" },
+  { src: "/hero/slide-5.jpg", text: "Chicken Fingers" },
+  { src: "/hero/slide-6.jpg", text: "Double Burger" },
 ];
 
 export default function Carousel() {
@@ -36,18 +36,21 @@ export default function Carousel() {
         />
       </AnimatePresence>
       {/* Dark Overlay */}
-      <div className="absolute inset-0  flex  items-center">
+      <div className="absolute inset-0  flex items-center">
         {/* Animated Text */}
         <motion.div
           key={index}
           initial={{ x: direction === "left" ? "-100%" : "100%", opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
+          animate={{ x: "20%", opacity: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
           className="text-white text-center p-6"
         >
-          <Card className= "bg-white/20 backdrop-blur-md rounded-2xl p-6">
-            <CardContent className="text-4xl font-bold lilita">
-              {images[index].text}
+          <Card className="bg-white/20 backdrop-blur-md rounded-2xl p-6 text-wrap max-w-[500px]">
+            <CardContent className="text-8xl font-bold font-lilita_one text-white leading-[1.1] tracking-[.07em] text-justify">
+              {images[index].text.toUpperCase()}
+            </CardContent>
+            <CardContent className="font-oswald text-white text-center text-6xl">
+              ONLY <span className=" text-secondary">&#8358;2500</span>
             </CardContent>
           </Card>
         </motion.div>

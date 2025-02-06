@@ -1,40 +1,25 @@
-"use client"
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+
 import Link from "next/link";
 import { FiShoppingCart } from "react-icons/fi"; // For Cart icon
 import { FiLogIn } from "react-icons/fi"; // For Login ico
+import { auth } from "@/auth";
+import { NavWrapper } from "./navWrapper";
+import Logout from "./logout";
+
 const navItems = [
   { name: "Home", href: "/" },
   { name: "Menu", href: "/menu" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
 ];
-export function Navbar() {
-  const [isSticky, setIsSticky] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+export async function Navbar() {
+  const session = auth();
 
   return (
-    <motion.nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isSticky ? "bg-white shadow-md" : "bg-transparent"
-      }`}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+    <NavWrapper
     >
-      <div className="max-w-7xl mx-auto px-6 py-4 oswald">
+      <div className="max-w-7xl mx-auto px-6 py-4 font-oswald">
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="text-2xl font-bold text-gray-900">
@@ -48,37 +33,33 @@ export function Navbar() {
             <Link href="/" className="text-lg  hover:text-gray-900">
               Home
             </Link>
-            <Link
-              href="/about"
-              className="text-lg hover:text-gray-900"
-            >
+            <Link href="/about" className="text-lg hover:text-gray-900">
               About
             </Link>
-            <Link
-              href="/services"
-              className="text-lg hover:text-gray-900"
-            >
+            <Link href="/services" className="text-lg hover:text-gray-900">
               Services
             </Link>
           </div>
 
           {/* Login and Cart */}
           <div className="flex space-x-6 items-center text-white">
-            <Link
-              href="/login"
-              className="text-lg hover:text-gray-900"
-            >
-              <FiLogIn className="text-xl" />
+            {!session ?
+              (<Link href="/login" className="text-lg hover:text-gray-900">
+                <FiLogIn className="text-xl" />
+              </Link>)
+              :
+              <Logout />
+           
+            }
+            <Link href="/register" className="text-lg hover:text-gray-900">
+              Register
             </Link>
-            <Link
-              href="/cart"
-              className="text-lg hover:text-gray-900"
-            >
+            <Link href="/cart" className="text-lg hover:text-gray-900">
               <FiShoppingCart className="text-xl" />
             </Link>
           </div>
         </div>
       </div>
-    </motion.nav>
+    </NavWrapper>
   );
 }

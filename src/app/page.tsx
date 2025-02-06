@@ -1,8 +1,11 @@
+import { auth } from "@/auth";
 import Carousel from "@/components/home/carousel";
 import { Navbar } from "@/components/home/navbar";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Home() {
+  const session = auth()
+  console.log(`this seesion is null: ${session}`)
   return (
     <div>
       <Navbar />
